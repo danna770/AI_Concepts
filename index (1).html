@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM AI Fundamentals — Flashcards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=IBM+Plex+Serif:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Pastel */
+            --pastel-azul: #8598c4;
+            --pastel-celeste: #8eb0c9;
+            --pastel-menta: #aee0cd;
+            --pastel-salvia: #d7ebd3;
+            --pastel-rosa: #ecc0d5;
+            --bg: #f9f9fb;
+            --surface: #ffffff;
+            --border: #dde1e6;
+            /* Se mantienen los colores originales oscuros SOLO para el texto */
+            --text: #21272a;
+            --text2: #697077;
+            --danger: #ff6b6b;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Sans',sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: linear-gradient(rgba(133,152,196,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(133,152,196,.15) 1px,transparent 1px);
+                background-size: 32px 32px;
+                pointer-events: none;
+                z-index: 0
+            }
+
+        /* ── HEADER ── */
+        header {
+            position: relative;
+            z-index: 10;
+            background: var(--pastel-azul);
+            padding: 2.5rem 2.5rem 2rem;
+            border-bottom: 3px solid var(--pastel-celeste)
+        }
+
+        .header-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem
+        }
+
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            gap: .3rem
+        }
+
+        .ibm-eyebrow {
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--pastel-rosa)
+        }
+
+        .header-title {
+            font-family: 'IBM Plex Serif',serif;
+            font-size: clamp(2rem,5vw,3.2rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: #fff;
+            outline: none
+        }
+
+            .header-title span {
+                color: var(--pastel-menta);
+                font-weight: 600
+            }
+
+        .header-sub {
+            font-family: 'IBM Plex Sans',sans-serif;
+            font-size: .9rem;
+            font-weight: 300;
+            color: #fff;
+            opacity: .7;
+            margin-top: .2rem;
+            outline: none
+        }
+
+        .header-actions {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+            align-self: center
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            font-family: 'IBM Plex Sans',sans-serif;
+            font-size: .72rem;
+            font-weight: 600;
+            padding: .5rem 1rem;
+            border: 1.5px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all .15s;
+            white-space: nowrap;
+            letter-spacing: .04em
+        }
+
+        .btn-primary {
+            background: var(--pastel-celeste);
+            color: #fff;
+            border-color: var(--pastel-celeste)
+        }
+
+            .btn-primary:hover {
+                background: var(--pastel-menta);
+                border-color: var(--pastel-menta);
+                color: var(--text)
+            }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border-color: rgba(255,255,255,.5)
+        }
+
+            .btn-ghost:hover {
+                border-color: #fff;
+                background: rgba(255,255,255,.1)
+            }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border-color: var(--danger)
+        }
+
+            .btn-danger:hover {
+                background: var(--danger);
+                color: #fff
+            }
+
+        .btn-sm {
+            font-size: .62rem;
+            padding: .3rem .7rem
+        }
+
+        /* ── TOOLBAR (Agrandado) ── */
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255,255,255,.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 2.5rem; /* Padding aumentado */
+            display: flex;
+            gap: .7rem; /* Separación aumentada */
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .cat-pill {
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .7rem; /* Fuente aumentada */
+            font-weight: 600;
+            padding: .6rem 1.2rem; /* Padding aumentado */
+            border-radius: 100px;
+            border: 2px solid var(--pastel-celeste); /* Borde un poco más grueso */
+            background: transparent;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .15s;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem; /* Separación icono/texto aumentada */
+            white-space: nowrap
+        }
+
+            .cat-pill:hover {
+                border-color: var(--pastel-azul);
+                color: var(--pastel-azul)
+            }
+
+            .cat-pill.active {
+                background: var(--pastel-azul);
+                border-color: var(--pastel-azul);
+                color: #fff
+            }
+
+        .pill-count {
+            background: var(--pastel-salvia);
+            border-radius: 100px;
+            padding: .15rem .6rem; /* Padding aumentado */
+            font-size: .8rem; /* Fuente aumentada */
+            color: var(--text)
+        }
+
+        .cat-pill.active .pill-count {
+            background: rgba(255,255,255,.2);
+            color: #fff
+        }
+
+        /* ── STATS (Agrandado) ── */
+        .stats-bar {
+            position: relative;
+            z-index: 5;
+            padding: 1rem 2.5rem; /* Padding aumentado */
+            display: flex;
+            gap: 2rem; /* Separación aumentada */
+            flex-wrap: wrap;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .9rem; /* Fuente aumentada */
+            color: var(--text2)
+        }
+
+            .stats-bar strong {
+                color: var(--pastel-azul)
+            }
+
+        /* ── MAIN ── */
+        #main {
+            position: relative;
+            z-index: 1;
+            max-width: 1440px;
+            margin: 0 auto
+        }
+
+        .section {
+            padding: 2.5rem 2.5rem 0
+        }
+
+        /* ── SECTION HEADER (Agrandado) ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem; /* Margen inferior aumentado */
+            padding-bottom: 1.2rem; /* Padding inferior aumentado */
+            border-bottom: 3px solid var(--pastel-salvia) /* Borde más grueso */
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: .8rem; /* Separación aumentada */
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: 1.2rem; /* Fuente aumentada considerablemente */
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase
+        }
+
+        .section-dot {
+            width: 14px; /* Punto más grande */
+            height: 14px; /* Punto más grande */
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .section-badge {
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .85rem; /* Fuente aumentada */
+            background: var(--pastel-salvia);
+            border-radius: 4px;
+            padding: .2rem .6rem; /* Padding aumentado */
+            color: var(--text);
+            margin-left: .5rem
+        }
+
+        .course-tag {
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .85rem; /* Fuente aumentada */
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .3rem .8rem; /* Padding aumentado */
+            border-radius: 4px;
+            border: 2px solid var(--pastel-celeste); /* Borde más grueso */
+            color: var(--pastel-celeste);
+            opacity: .85
+        }
+
+        /* ── GRID ── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 1.2rem;
+            padding-bottom: 2.5rem
+        }
+
+        @media(max-width:1100px) {
+            .cards-grid {
+                grid-template-columns: repeat(2,1fr)
+            }
+        }
+
+        @media(max-width:640px) {
+            .cards-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 1.3rem 1.2rem 1.15rem;
+            position: relative;
+            transition: transform .18s,box-shadow .18s;
+            cursor: default;
+            overflow: hidden;
+            animation: cardIn .3s ease both;
+            border-top: 3px solid var(--cat-color,var(--pastel-azul))
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(.975)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,.08),0 0 0 1px var(--cat-color,var(--pastel-azul))
+        }
+
+        .card-module {
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .5rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--cat-color,var(--pastel-azul));
+            opacity: .7;
+            margin-bottom: .85rem
+        }
+
+        .card-term {
+            font-family: 'IBM Plex Sans',sans-serif;
+            font-size: .9rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+            margin-bottom: .6rem
+        }
+
+        .card-def {
+            font-family: 'IBM Plex Sans',sans-serif;
+            font-size: .8rem;
+            font-weight: 300;
+            line-height: 1.65;
+            color: var(--text2)
+        }
+
+        .card-source {
+            display: inline-block;
+            margin-top: .6rem;
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .52rem;
+            color: var(--text2);
+            background: var(--pastel-salvia);
+            padding: .12rem .38rem;
+            border-radius: 2px;
+            border-left: 2px solid var(--cat-color,var(--pastel-azul))
+        }
+
+        .card-del {
+            position: absolute;
+            top: .6rem;
+            right: .7rem;
+            background: transparent;
+            border: none;
+            color: transparent;
+            font-size: .72rem;
+            cursor: pointer;
+            border-radius: 2px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color .12s,background .12s
+        }
+
+        .card:hover .card-del {
+            color: var(--pastel-celeste)
+        }
+
+        .card-del:hover {
+            color: var(--danger) !important;
+            background: rgba(218,30,40,.1)
+        }
+
+        /* ── MODALS ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,.55);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center
+        }
+
+            .modal-overlay.open {
+                display: flex
+            }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--pastel-azul);
+            border-radius: 2px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,.15);
+            animation: modalIn .2s ease
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.94) translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .modal h3 {
+            font-family: 'IBM Plex Serif',serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.4rem;
+            color: var(--pastel-azul)
+        }
+
+        .form-group {
+            margin-bottom: .85rem
+        }
+
+        label {
+            display: block;
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text2);
+            margin-bottom: .35rem
+        }
+
+        input, textarea, select {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--text);
+            font-family: 'IBM Plex Sans',sans-serif;
+            font-size: .8rem;
+            padding: .58rem .82rem;
+            outline: none;
+            transition: border-color .15s;
+            resize: vertical
+        }
+
+            input:focus, textarea:focus, select:focus {
+                border-color: var(--pastel-azul);
+                background: #fff;
+                box-shadow: 0 0 0 2px rgba(133,152,196,.25)
+            }
+
+        textarea {
+            min-height: 88px
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: .75rem;
+            justify-content: flex-end;
+            margin-top: 1.4rem
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text2);
+            font-family: 'IBM Plex Mono',monospace;
+            font-size: .72rem
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px
+        }
+
+        /* ── MOBILE OPTIMIZATIONS ── */
+        @media (max-width: 640px) {
+
+            /* Header */
+            header {
+                padding: 1.25rem 1rem 1rem
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: .85rem
+            }
+
+            .header-title {
+                font-size: clamp(1.6rem, 8vw, 2.2rem)
+            }
+
+            .header-sub {
+                font-size: .78rem
+            }
+
+            .ibm-eyebrow {
+                font-size: .55rem
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: flex-start
+            }
+
+            .header-actions .btn {
+                flex: 1;
+                text-align: center;
+                font-size: .68rem;
+                padding: .55rem .6rem
+            }
+
+            /* Toolbar — horizontal scroll */
+            .toolbar {
+                padding: .75rem 1rem;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: .5rem;
+                scrollbar-width: none
+            }
+
+            .toolbar::-webkit-scrollbar {
+                display: none
+            }
+
+            .cat-pill {
+                flex-shrink: 0;
+                font-size: .62rem;
+                padding: .45rem .9rem
+            }
+
+            /* Stats bar */
+            .stats-bar {
+                padding: .65rem 1rem;
+                gap: .75rem;
+                font-size: .72rem;
+                flex-wrap: wrap
+            }
+
+            /* Sections */
+            .section {
+                padding: 1.5rem 1rem 0
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: .65rem;
+                margin-bottom: 1.25rem;
+                padding-bottom: .85rem
+            }
+
+            .section-title {
+                font-size: .85rem;
+                flex-wrap: wrap
+            }
+
+            .section-badge {
+                font-size: .72rem
+            }
+
+            .course-tag {
+                font-size: .72rem;
+                padding: .2rem .55rem
+            }
+
+            /* Grid → single column (already set, just fix padding) */
+            .cards-grid {
+                gap: .85rem;
+                padding-bottom: 1.5rem
+            }
+
+            /* Cards */
+            .card {
+                padding: 1rem .95rem .9rem
+            }
+
+            .card-term {
+                font-size: .85rem
+            }
+
+            .card-def {
+                font-size: .78rem;
+                line-height: 1.6
+            }
+
+            .card-source {
+                font-size: .5rem
+            }
+
+            /* Make delete button always visible on mobile (no hover) */
+            .card-del {
+                color: var(--pastel-celeste)
+            }
+
+            /* Modal */
+            .modal {
+                padding: 1.4rem 1rem;
+                margin: .75rem
+            }
+
+            .modal h3 {
+                font-size: 1rem;
+                margin-bottom: 1.1rem
+            }
+
+            .modal-footer {
+                flex-direction: column-reverse;
+                gap: .5rem
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+                text-align: center;
+                padding: .65rem 1rem
+            }
+
+            input, textarea, select {
+                font-size: .85rem;
+                padding: .6rem .75rem
+            }
+        }
+
+        /* ── SMALL TABLETS (641–1100px) minor tweaks ── */
+        @media (min-width: 641px) and (max-width: 1100px) {
+            header {
+                padding: 1.75rem 1.5rem 1.5rem
+            }
+
+            .toolbar {
+                padding: 1rem 1.5rem
+            }
+
+            .stats-bar {
+                padding: .8rem 1.5rem
+            }
+
+            .section {
+                padding: 2rem 1.5rem 0
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="header-brand">
+                <span class="ibm-eyebrow">IBM · AI Fundamentals &amp; Artificial Intelligence and Machine Learning — Flashcards v3</span>
+                <div id="mainTitle" class="header-title" contenteditable="true" spellcheck="false"><span>IBM</span> AI Flashcards</div>
+                <div id="mainSub" class="header-sub" contenteditable="true" spellcheck="false">Conceptos auditados · IBM AI Fundamentals &amp; IBM AI and Machine Learning</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openModal('card')">+ New Card</button>
+                <button class="btn btn-ghost" onclick="openModal('category')">+ New Category</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="toolbar" id="toolbar"></nav>
+    <div class="stats-bar" id="statsBar"></div>
+    <div id="main"></div>
+
+    <div class="modal-overlay" id="modalCard">
+        <div class="modal">
+            <h3>New Flashcard</h3>
+            <div class="form-group"><label>Category</label><select id="cardCat"></select></div>
+            <div class="form-group"><label>Term (English)</label><input id="cardTerm" placeholder="e.g. Linear Regression" /></div>
+            <div class="form-group"><label>Definition</label><textarea id="cardDef" placeholder="Definición concisa…"></textarea></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('card')">Cancel</button>
+                <button class="btn btn-primary" onclick="addCard()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCat">
+        <div class="modal">
+            <h3>New Category</h3>
+            <div class="form-group"><label>Name</label><input id="catName" placeholder="e.g. Supervised Algorithms" /></div>
+            <div class="form-group"><label>Emoji</label><input id="catEmoji" placeholder="🧠" maxlength="4" /></div>
+            <div class="form-group"><label>Accent color (hex)</label><input id="catColor" placeholder="#0f62fe" /></div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('category')">Cancel</button>
+                <button class="btn btn-primary" onclick="addCategory()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── editable titles ──
+        const titleEl = document.getElementById('mainTitle');
+        const subEl = document.getElementById('mainSub');
+        if (localStorage.getItem('ibm3_title')) titleEl.innerHTML = localStorage.getItem('ibm3_title');
+        if (localStorage.getItem('ibm3_sub')) subEl.innerText = localStorage.getItem('ibm3_sub');
+        titleEl.addEventListener('input', () => localStorage.setItem('ibm3_title', titleEl.innerHTML));
+        subEl.addEventListener('input', () => localStorage.setItem('ibm3_sub', subEl.innerText));
+
+        // ── COURSE LABELS ──
+        // C1 = IBM AI Fundamentals
+        // C2 = IBM Artificial Intelligence and Machine Learning
+
+        const DEFAULT_CATEGORIES = [
+            { id: 'ia-core', name: 'AI — Core Concepts', emoji: '🧠', color: '#0f62fe', course: 'C1' },
+            { id: 'ia-aug', name: 'AI vs. Augmented Intelligence', emoji: '🤝', color: '#0072c3', course: 'C1' },
+            { id: 'ml-core', name: 'Machine Learning — Foundations', emoji: '⚙️', color: '#005d5d', course: 'C1+C2' },
+            { id: 'ml-types', name: 'ML Learning Types', emoji: '📊', color: '#007d79', course: 'C1+C2' },
+            { id: 'supervised', name: 'Supervised Algorithms', emoji: '📈', color: '#0043ce', course: 'C2' },
+            { id: 'unsup', name: 'Unsupervised Algorithms', emoji: '🔍', color: '#6929c4', course: 'C2' },
+            { id: 'ml-eval', name: 'Model Evaluation & AutoAI', emoji: '📐', color: '#b28600', course: 'C1+C2' },
+            { id: 'deep', name: 'Deep Learning & Generative AI', emoji: '🔬', color: '#9f1853', course: 'C1' },
+            { id: 'cnn-gan', name: 'CNNs & GANs', emoji: '🕸️', color: '#740937', course: 'C1' },
+            { id: 'nlp', name: 'NLP & Computer Vision', emoji: '💬', color: '#198038', course: 'C1' },
+            { id: 'math', name: 'Mathematics for ML', emoji: '➗', color: '#8a3800', course: 'C2' },
+            { id: 'ml-limits', name: 'ML Tasks, Experience & Limits', emoji: '⚠️', color: '#697077', course: 'C2' },
+            { id: 'ibm-tools', name: 'IBM Watson Studio & AutoAI', emoji: '🛠️', color: '#1192e8', course: 'C1' },
+            { id: 'watsonx', name: 'IBM watsonx Ecosystem', emoji: '🔷', color: '#0530ad', course: 'C1' },
+            { id: 'python', name: 'Python for ML', emoji: '🐍', color: '#007d79', course: 'C2' },
+            { id: 'ethics', name: 'AI Ethics & IBM Pillars', emoji: '⚖️', color: '#da1e28', course: 'C1' },
+            { id: 'careers', name: 'AI/ML Careers', emoji: '💼', color: '#740937', course: 'C1' },
+        ];
+
+        const COURSE_LABELS = {
+            'C1': { text: 'IBM AI Fundamentals', color: '#0f62fe' },
+            'C2': { text: 'IBM AI & Machine Learning', color: '#6929c4' },
+            'C1+C2': { text: 'IBM AI Fundamentals + AI & ML', color: '#005d5d' },
+        };
+
+        const DEFAULT_CARDS = [
+
+            // ══════════════════════════════════════════════
+            // AI — CORE CONCEPTS  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 1, cat: 'ia-core',
+                term: 'Artificial Intelligence (AI) — IBM Definition',
+                def: 'Campo que combina ciencias de la computación y conjuntos de datos robustos para habilitar la resolución de problemas. Las máquinas aprenden patrones y hacen predicciones. La IA no reemplaza las decisiones humanas; agrega valor al juicio humano.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 2, cat: 'ia-core',
+                term: 'AI — High-level definition',
+                def: 'Aprovechar computadoras o máquinas para imitar las capacidades de resolución de problemas y toma de decisiones de la mente humana. Es el concepto más amplio de la jerarquía AI ⊃ ML ⊃ Deep Learning.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 3, cat: 'ia-core',
+                term: 'AI Hierarchy: AI ⊃ ML ⊃ Deep Learning',
+                def: 'IA es el campo más amplio. Machine Learning es un subconjunto de IA (algoritmos que aprenden de datos). Deep Learning es un subconjunto de ML (redes neuronales profundas). Cada nivel es más especializado y requiere más datos para escalar.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 4, cat: 'ia-core',
+                term: 'Machine Strengths in AI context',
+                def: 'Ingestión de grandes volúmenes de datos a alta velocidad sin fatiga. Tareas repetitivas con precisión confiable. Análisis rápido y a escala. No tienen creatividad, generalización espontánea ni inteligencia emocional.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 5, cat: 'ia-core',
+                term: 'Human Strengths in AI context',
+                def: '(1) Generalizar información: tomar un dato y comprender el concepto que representa. (2) Creatividad: idear soluciones y comunicar hallazgos. (3) Inteligencia emocional: entender reacciones ajenas, crítico en atención al cliente y cuidado de personas.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 6, cat: 'ia-core',
+                term: 'Strength Matrix (Machines vs. Humans)',
+                def: 'Herramienta de decisión: si el problema requiere velocidad, volumen de datos y precisión repetitiva → IA pura. Si requiere creatividad, juicio complejo o empatía → colaboración aumentada. La respuesta óptima suele ser "ambas".',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // AI vs AUGMENTED INTELLIGENCE  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 10, cat: 'ia-aug',
+                term: 'Augmented Intelligence — IBM Definition',
+                def: 'Término preferido por IBM: colaboración entre humanos y máquinas para potenciar las capacidades de ambos. IBM enfatiza que la IA debe aumentar la inteligencia humana, no reemplazarla. Es una posición filosófica sobre el rol de la tecnología.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 11, cat: 'ia-aug',
+                term: 'AI (Autonomous) vs. Augmented Intelligence',
+                def: 'IA pura: máquinas actúan autónomamente sin input humano (ej: conducción autónoma en autopista, el auto mantiene carril/velocidad/distancia sin el conductor). Aumentada: máquina complementa al humano (ej: detección de colisión alerta al conductor; el humano decide).',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 12, cat: 'ia-aug',
+                term: 'Three Forms of Intelligence — driving example',
+                def: 'El video IBM ilustra 3 formas: (1) Human intelligence: manejar el volante, verificar espejos. (2) Artificial intelligence: autopilot en autopista, sin input humano. (3) Augmented intelligence: detección de colisión y punto ciego al salir de la autopista.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 13, cat: 'ia-aug',
+                term: 'Augmented Intelligence — Real-world examples',
+                def: '• Screen readers para personas con discapacidad visual.\n• Voice-driven navigation.\n• Collision detection y blind-spot avoidance en autos.\n• IBM Project Debater debatiendo con datos.\nTodos actúan en nombre del humano complementando sus capacidades, no reemplazándolas.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 14, cat: 'ia-aug',
+                term: '"The Best Answer Is Both"',
+                def: 'Según IBM, no hay que elegir entre IA o inteligencia aumentada: ambas son necesarias. La aumentada es el "sweet spot" que combina fortalezas humanas con capacidad de procesamiento de datos para lograr resultados imposibles individualmente.',
+                src: 'AI vs Augmented Intelligence (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 15, cat: 'ia-aug',
+                term: 'IBM Project Debater',
+                def: 'Sistema de IA de IBM que construye y entrega argumentos persuasivos basados en datos. Ejemplo: debatió a favor de subsidiar el preescolar argumentando que los subsidios a padres de bajos ingresos les permite ingresar y mantenerse en el mercado laboral. Demostró capacidad de razonamiento estructurado y rebatir al oponente.',
+                src: 'IBM Project Debater (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 16, cat: 'ia-aug',
+                term: 'IBM\'s Three Guiding Principles for AI',
+                def: '1. La IA debe aumentar la inteligencia humana, no reemplazarla.\n2. Los datos y los insights pertenecen a quien los creó (data ownership).\n3. Los sistemas de IA deben ser transparentes y explicables para generar confianza.',
+                src: 'IBM AI Ethics Official Policy · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // MACHINE LEARNING — FOUNDATIONS  (C1+C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 20, cat: 'ml-core',
+                term: 'Machine Learning (ML) — IBM Definition',
+                def: 'Subconjunto de IA más enfocado en el uso de algoritmos de autoaprendizaje que derivan conocimiento de datos para predecir resultados. No requiere programación explícita de reglas; el sistema aprende los patrones por sí mismo a partir de los datos.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 21, cat: 'ml-core',
+                term: 'Traditional Programming vs. Machine Learning',
+                def: 'Prog. tradicional: reglas escritas manualmente por humanos → respuesta basada en reglas fijas → difícil para problemas complejos (ej: reconocer rostros). ML: lógica aprendida automáticamente → respuesta basada en patrones estadísticos → excelente para Big Data.',
+                src: 'Exploring ML Methods (notes) · AI & ML'
+            },
+
+            {
+                id: 22, cat: 'ml-core',
+                term: 'ML and Big Data',
+                def: 'ML es excelente para grandes volúmenes de datos (Big Data). A mayor cantidad y calidad de datos de entrenamiento, más precisos pueden ser los modelos. Deep Learning escala aún mejor porque automatiza la extracción de características.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 23, cat: 'ml-core',
+                term: 'Labeled Data (Datos Etiquetados)',
+                def: 'Dataset donde las filas tienen etiquetas, tags o categorías predefinidas que informan algo sobre ese dato (ej: "Sí/No", "Riesgo/Sin Riesgo"). Es la base del aprendizaje supervisado. La etiqueta actúa como la "respuesta correcta" que guía el entrenamiento.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 24, cat: 'ml-core',
+                term: 'Unlabeled Data (Datos No Etiquetados)',
+                def: 'Dataset sin clasificación o etiqueta previa. El algoritmo debe descubrir patrones y estructuras por sí solo, sin señal externa de "correcto/incorrecto". Base del aprendizaje no supervisado (clustering, reducción de dimensionalidad).',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // ML LEARNING TYPES  (C1+C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 30, cat: 'ml-types',
+                term: 'Supervised Learning',
+                def: 'Usa datasets etiquetados para entrenar algoritmos que clasifiquen datos o predigan resultados específicos. La "respuesta correcta" en los datos guía el ajuste del modelo. Dos subcategorías principales: Classification y Regression.',
+                src: 'What is Machine Learning (video) + ML Tasks (notes) · AI Fundamentals & AI & ML'
+            },
+
+            {
+                id: 31, cat: 'ml-types',
+                term: 'Unsupervised Learning',
+                def: 'Usa algoritmos para analizar y agrupar datasets sin etiquetar. Descubre patrones ocultos o agrupaciones sin intervención humana. Los datos no tienen "respuesta correcta". Técnicas: Clustering y Dimensionality Reduction.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 32, cat: 'ml-types',
+                term: 'Reinforcement Learning',
+                def: 'Forma semi-supervisada donde un agente toma acciones en un entorno. El entorno recompensa aciertos ("rewards") y castiga errores ("punishments"). A través de muchas iteraciones el sistema aprende a ejecutar una tarea. Ejemplo: enseñar a un auto autónomo a conducir.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 33, cat: 'ml-types',
+                term: 'Semi-supervised Learning',
+                def: 'Combina una pequeña cantidad de datos etiquetados con una gran cantidad de datos no etiquetados. Útil cuando etiquetar datos es costoso o difícil. El Reinforcement Learning es considerado una forma de aprendizaje semi-supervisado.',
+                src: 'Exploring ML Methods (notes) · AI & ML'
+            },
+
+            {
+                id: 34, cat: 'ml-types',
+                term: 'Comparing the 3 Main ML Methods',
+                def: 'Supervisado: datos etiquetados → predice/clasifica con ecuaciones. | No supervisado: sin etiquetas → descubre patrones/estructura. | Por refuerzo: agente + entorno → aprende por recompensas/castigos. | Diferencia clave: la fuente y forma de la "señal de aprendizaje".',
+                src: 'ML Tasks (notes) · AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // SUPERVISED ALGORITHMS  (C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 40, cat: 'supervised',
+                term: 'Classification — Supervised',
+                def: 'Técnica supervisada que reconoce y agrupa ideas u objetos en categorías predefinidas. El modelo aprende las fronteras entre clases a partir de datos etiquetados. Ejemplo: identificar clientes a punto de hacer churn para tomar acciones de retención.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 41, cat: 'supervised',
+                term: 'Linear Regression',
+                def: 'Algoritmo supervisado que modela la relación lineal entre una variable dependiente continua (output) y una o más variables independientes (inputs). Genera una línea (o hiperplano) que minimiza el error cuadrático medio. Ejemplo: predecir el precio de una casa según superficie, ubicación y antigüedad.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 42, cat: 'supervised',
+                term: 'Logistic Regression',
+                def: 'A pesar del nombre, es un algoritmo de clasificación, no de regresión. Predice la probabilidad de que un dato pertenezca a una clase (salida entre 0 y 1 mediante función sigmoide). Usado para clasificación binaria. Ejemplo: predecir si un email es spam o no.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 43, cat: 'supervised',
+                term: 'Decision Tree',
+                def: 'Algoritmo supervisado que construye un árbol de decisiones con nodos (preguntas sobre features) y hojas (predicciones). Altamente interpretable (explainable). Puede usarse para clasificación y regresión. Susceptible a overfitting si el árbol es muy profundo.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 44, cat: 'supervised',
+                term: 'Random Forest',
+                def: 'Algoritmo de ensemble que combina múltiples decision trees entrenados en subsets aleatorios del dataset. La predicción final es el promedio (regresión) o voto mayoritario (clasificación) de todos los árboles. Reduce el overfitting del decision tree individual y aumenta la precisión.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 45, cat: 'supervised',
+                term: 'Gradient Boosting Classifier',
+                def: 'Algoritmo de ensemble secuencial: cada nuevo árbol corrige los errores residuales del modelo anterior (boosting). Alta precisión en datos tabulares. Incluido manualmente en el experimento de riesgo de crédito de Watson Studio. Variantes populares: XGBoost, LightGBM.',
+                src: 'Create and run AI models (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 46, cat: 'supervised',
+                term: 'Support Vector Machine (SVM)',
+                def: 'Algoritmo supervisado que encuentra el hiperplano de máximo margen que separa las clases. Efectivo en espacios de alta dimensionalidad. Usa "kernel tricks" para manejar datos no linealmente separables. Robusto en datasets pequeños y medianos.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 47, cat: 'supervised',
+                term: 'K-Nearest Neighbors (KNN)',
+                def: 'Algoritmo supervisado basado en instancias (lazy learning). Clasifica un nuevo dato según la clase mayoritaria de sus K vecinos más cercanos en el espacio de features. Simple e interpretable, pero lento en predicción con datasets grandes. Sensible a la escala de las features.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 48, cat: 'supervised',
+                term: 'Naive Bayes',
+                def: 'Algoritmo supervisado probabilístico basado en el teorema de Bayes. Asume independencia entre features (de ahí "naive"). Muy rápido y efectivo para clasificación de texto (ej: spam detection, análisis de sentimiento). Funciona bien incluso con datos escasos.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 49, cat: 'supervised',
+                term: 'Regression — Supervised',
+                def: 'Construye una ecuación usando valores de entrada (features) con pesos determinados por su impacto en el resultado, para generar una estimación de valor continuo de salida. Ejemplo: aerolíneas usan regresión para predecir el precio óptimo de un vuelo según días antes de salida, día de la semana y destino.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // UNSUPERVISED ALGORITHMS  (C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 55, cat: 'unsup',
+                term: 'Clustering — Unsupervised',
+                def: 'Agrupa datos similares en "clusters" o "cubos" sin etiquetas previas. Ejemplo: segmentación de clientes por historial de compras, actividad en redes sociales y geografía para enviar ofertas más relevantes. Algoritmo más común: K-Means.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 56, cat: 'unsup',
+                term: 'K-Means Clustering',
+                def: 'Algoritmo de clustering que divide el dataset en K grupos minimizando la distancia intra-cluster. El usuario especifica K (número de clusters). Iterativo: asigna puntos al centroide más cercano y recalcula centroides hasta convergencia.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 57, cat: 'unsup',
+                term: 'Dimensionality Reduction — Unsupervised',
+                def: 'Técnicas que reducen el número de variables de entrada (features) en un dataset. Objetivo: eliminar parámetros redundantes o correlacionados que sobrerepresenten su impacto en el resultado. Mejora velocidad de entrenamiento y reduce riesgo de curse of dimensionality.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 58, cat: 'unsup',
+                term: 'PCA — Principal Component Analysis',
+                def: 'Técnica de reducción de dimensionalidad que proyecta los datos en nuevos ejes (componentes principales) que maximizan la varianza explicada. Transforma features correlacionadas en un conjunto menor de features no correlacionadas (componentes). Usado para visualización y preprocesamiento.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            {
+                id: 59, cat: 'unsup',
+                term: 'Association Rule Learning',
+                def: 'Técnica no supervisada que identifica reglas "si A → entonces B" en grandes datasets transaccionales. Ejemplo: market basket analysis (los clientes que compran pan suelen comprar mantequilla). Métricas clave: support, confidence y lift.',
+                src: 'Machine Learning Algorithms (notes) · AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // MODEL EVALUATION & AutoAI  (C1+C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 65, cat: 'ml-eval',
+                term: 'Pipeline (AutoAI — IBM Official)',
+                def: 'En AutoAI, un pipeline es la combinación completa de: (1) preparación de datos, (2) algoritmo seleccionado (DAUB), (3) feature engineering, y (4) optimización de hiperparámetros. AutoAI genera y rankea múltiples pipelines candidatos en un leaderboard.',
+                src: 'IBM AutoAI Official Docs · AI Fundamentals'
+            },
+
+            {
+                id: 66, cat: 'ml-eval',
+                term: 'AutoAI — 4 Phases of Pipeline Generation',
+                def: '1. Data pre-processing: limpieza, imputación, encoding, scaling.\n2. Automated model selection (DAUB): identificar el mejor algoritmo.\n3. Feature engineering: crear/transformar features via reinforcement learning.\n4. Hyperparameter optimization (HPO): afinar parámetros con RBFOpt (IBM Research).',
+                src: 'IBM AutoAI Implementation Details · AI Fundamentals'
+            },
+
+            {
+                id: 67, cat: 'ml-eval',
+                term: 'Binary Classification',
+                def: 'Tipo de predicción con exactamente dos clases posibles (ej: Riesgo / Sin Riesgo). AutoAI lo asigna automáticamente cuando la columna objetivo tiene dos valores. Métricas clave: ROC AUC, accuracy, precision, recall, F1-score.',
+                src: 'Create and run AI models (lab) · AI Fundamentals'
+            },
+
+            {
+                id: 68, cat: 'ml-eval',
+                term: 'Confusion Matrix',
+                def: 'Matriz 2×2 (para clasificación binaria) que cruza predicciones del modelo contra valores reales: True Positives (TP), True Negatives (TN), False Positives (FP / error Tipo I) y False Negatives (FN / error Tipo II). IBM lo describe como "mathematical test that compares predictions from all algorithms".',
+                src: 'Save AI models transcript · AI Fundamentals'
+            },
+
+            {
+                id: 69, cat: 'ml-eval',
+                term: 'ROC Curve',
+                def: 'Gráfica que muestra el rendimiento de un clasificador en todos los umbrales posibles (True Positive Rate vs. False Positive Rate). El área bajo la curva (AUC) mide el poder discriminativo global. Es la vista por defecto en el Pipeline details de AutoAI.',
+                src: 'Create and run AI models (lab) · AI Fundamentals'
+            },
+
+            {
+                id: 70, cat: 'ml-eval',
+                term: 'Training / Holdout Split',
+                def: 'División del dataset para entrenamiento y evaluación. Por defecto en AutoAI: 90% training / 10% holdout. El holdout simula datos "nuevos" que el modelo nunca vio durante el entrenamiento. El Training data split slider permite ajustar esta proporción.',
+                src: 'Create and run AI models (lab) · AI Fundamentals'
+            },
+
+            {
+                id: 71, cat: 'ml-eval',
+                term: 'Feature Selection vs. Feature Engineering',
+                def: 'Feature selection: elegir qué columnas existentes incluir/excluir (ej: excluir columna "Teléfono" en el experimento de crédito porque IBM la marca como no predictiva). Feature engineering: crear nuevas columnas derivadas. AutoAI hace ambas automáticamente.',
+                src: 'Create and run AI models (lab) + AutoAI Docs · AI Fundamentals'
+            },
+
+            {
+                id: 72, cat: 'ml-eval',
+                term: 'Starred Pipeline ★ (AutoAI Leaderboard)',
+                def: 'AutoAI rankea todos los pipelines por precisión y velocidad. El pipeline marcado con ★ es el mejor balance entre accuracy y runtime. Es el candidato recomendado para guardar como modelo o notebook y promover a producción.',
+                src: 'Create and run AI models (lab) · AI Fundamentals'
+            },
+
+            {
+                id: 73, cat: 'ml-eval',
+                term: 'Overfitting vs. Underfitting',
+                def: 'Overfitting: el modelo aprende el ruido del training set y no generaliza bien a datos nuevos (alta varianza, bajo bias). Underfitting: modelo demasiado simple que no captura los patrones (alto bias, baja varianza). El split training/holdout y la regularización ayudan a detectar y mitigar ambos.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 74, cat: 'ml-eval',
+                term: 'Cross-Validation',
+                def: 'Técnica de evaluación que divide el dataset en K folds. El modelo se entrena K veces, usando cada fold como holdout una vez. El resultado final es el promedio de las K evaluaciones. Más robusta que un único split, especialmente con datasets pequeños.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // DEEP LEARNING & GENERATIVE AI  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 80, cat: 'deep',
+                term: 'Deep Learning — IBM Definition',
+                def: 'Subconjunto de ML que usa redes neuronales con múltiples capas. Se considera "ML escalable" porque automatiza la extracción de características, reduciendo la intervención humana y permitiendo usar datasets enormes. Descarta la necesidad de feature engineering manual.',
+                src: 'What is Machine Learning (video) · AI Fundamentals'
+            },
+
+            {
+                id: 81, cat: 'deep',
+                term: 'Artificial Neural Network — Structure',
+                def: 'Red de múltiples capas interconectadas. Cada capa recibe un input, lo transforma (mediante pesos, bias y función de activación) y pasa un output a la siguiente capa. Imita el cerebro biológico. CNN es un tipo especial diseñado para reconocimiento de patrones.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 82, cat: 'deep',
+                term: 'Generative AI',
+                def: 'Subcampo del Deep Learning que produce contenido nuevo (texto, imágenes, audio, código) que no existía en los datos de entrenamiento. Los modelos generativos aprenden la distribución subyacente de los datos. Incluye GANs, VAEs y Foundation Models (LLMs).',
+                src: 'Deep and Machine Learning (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 83, cat: 'deep',
+                term: 'Key Points to Remember — Deep Learning',
+                def: '1. DL es un subconjunto de ML. 2. Usa redes neuronales con múltiples capas. 3. Automatiza feature extraction. 4. Requiere grandes cantidades de datos. 5. Incluye CNNs (para imágenes), RNNs (para secuencias) y GANs (generativas). 6. Generative AI es un subconjunto de DL.',
+                src: 'Deep and Machine Learning (notes) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // CNNs & GANs  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 90, cat: 'cnn-gan',
+                term: 'CNN — Convolutional Neural Network',
+                def: 'Área del deep learning especializada en reconocimiento de patrones en imágenes. Usa capas con filtros que analizan secciones de la imagen y acumulan comprensión progresiva: formas simples → objetos → conceptos abstractos.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 91, cat: 'cnn-gan',
+                term: 'CNN — Filters (3×3 blocks)',
+                def: 'Bloques 3×3 dentro de las capas CNN que buscan un patrón específico (ej: un ángulo recto). El filtro se desliza ("slides") sobre todos los bloques 3×3 de la imagen produciendo un puntaje numérico de coincidencia para cada posición.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 92, cat: 'cnn-gan',
+                term: 'CNN — Pooling',
+                def: 'Proceso de combinar los arrays numéricos de múltiples filtros en una representación unificada. Da una comprensión más completa del contenido de los píxeles que cualquier filtro individual. Aumenta la robustez al reconocer variaciones del mismo patrón.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 93, cat: 'cnn-gan',
+                term: 'CNN — Progressive Layer Abstraction',
+                def: 'Capa 1: formas simples (líneas, ángulos rectos). Capa 2: objetos básicos (ventana, puerta, techo). Capa 3+: conceptos abstractos (casa vs. edificio vs. rascacielos). Cada capa construye sobre la anterior para mayor nivel de abstracción.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 94, cat: 'cnn-gan',
+                term: 'CNN — Business Applications',
+                def: '• OCR: lectura de documentos escritos a mano o impresos.\n• Visual recognition y facial detection.\n• Visual search (buscar por imagen).\n• Medical imaging: identificar anomalías en scans.\n• Object identification.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 95, cat: 'cnn-gan',
+                term: 'GAN — Generative Adversarial Network',
+                def: 'Red adversarial generativa: pone dos modelos de IA a competir entre sí. Ejemplo de aprendizaje NO supervisado (se auto-supervisa). Componentes: Generator sub-model (crea muestras falsas) y Discriminator sub-model (determina si real o falso).',
+                src: 'What are GANs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 96, cat: 'cnn-gan',
+                term: 'GAN — Zero-Sum Game',
+                def: 'Siempre hay ganador y perdedor por ronda. El ganador no cambia su modelo. El perdedor debe actualizarlo. El ciclo continúa hasta que el generador produce muestras tan convincentes que el discriminador no puede distinguirlas de las reales.',
+                src: 'What are GANs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 97, cat: 'cnn-gan',
+                term: 'GAN — Training Order',
+                def: 'Primero se entrena el discriminador para que reconozca bien el dominio real. Mientras tanto, el generador está "frozen" (sin cambios). Solo cuando el discriminador es suficientemente bueno se activa el generador para crear muestras falsas.',
+                src: 'What are GANs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 98, cat: 'cnn-gan',
+                term: 'GAN — Key Applications',
+                def: '• Image generation: rostros, modelos 3D, flores sintéticas.\n• Video frame prediction: predecir el siguiente frame (vigilancia).\n• Image enhancement: convertir low-res a high-res.\n• Encryption: crear algoritmos de encriptación seguros.\n• CNNs suelen implementar el generator y discriminator internamente.',
+                src: 'What are GANs (transcript) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // NLP & COMPUTER VISION  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 105, cat: 'nlp',
+                term: 'NLP — Natural Language Processing',
+                def: 'Rama de la IA que permite a las computadoras entender, interpretar y generar lenguaje humano. Combina lingüística computacional con ML/DL. Aplicaciones: chatbots, análisis de sentimiento, resumen de texto, traducción automática, extracción de información.',
+                src: 'NLP (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 106, cat: 'nlp',
+                term: 'Classifies Images — CNN Application',
+                def: 'Las CNN pueden clasificar imágenes detectando patrones visuales en múltiples capas de abstracción: desde píxeles individuales hasta objetos completos y escenas. Este es el núcleo del computer vision moderno.',
+                src: 'NLP / PNL (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 107, cat: 'nlp',
+                term: 'OCR — Optical Character Recognition',
+                def: 'Aplicación de CNN para convertir imágenes de texto (documentos escritos a mano o impresos) en texto digital procesable. CNN detecta patrones de caracteres en múltiples capas de abstracción. Ejemplo de uso en IBM: lectura de documentos históricos.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 108, cat: 'nlp',
+                term: 'Visual Search',
+                def: 'Permite buscar contenido usando imágenes en lugar de texto. CNN reconoce objetos, formas y contexto en la imagen de consulta y encuentra imágenes o productos visualmente similares. Usado en e-commerce y búsqueda de productos de moda.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 109, cat: 'nlp',
+                term: 'Medical Imaging — CNN Application',
+                def: 'CNN aplicada a análisis de scans médicos (rayos X, MRI, tomografías) para identificar anomalías, tumores u otras condiciones con alta precisión. Puede superar la precisión diagnóstica humana en algunas tareas de clasificación de imágenes específicas.',
+                src: 'What are CNNs (transcript) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // MATHEMATICS FOR ML  (C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 115, cat: 'math',
+                term: 'Linear Algebra — Tool for Predictive Modeling',
+                def: 'Herramienta fundamental para ML. Los datos se representan como vectores y matrices. Permite transformaciones masivas en paralelo. La multiplicación de matrices es la operación central en redes neuronales, regresión y PCA.',
+                src: 'Mathematics (notes) · AI & ML'
+            },
+
+            {
+                id: 116, cat: 'math',
+                term: 'Probability and Statistics — Making Sense of Data',
+                def: 'Permiten comprender los datos: distribuciones de probabilidad, inferencia estadística, probabilidad condicional. Base para cuantificar la incertidumbre de las predicciones, comparar distribuciones (model drift) y validar hipótesis sobre los datos.',
+                src: 'Mathematics (notes) · AI & ML'
+            },
+
+            {
+                id: 117, cat: 'math',
+                term: 'Deciphering Statistics — Key Concepts',
+                def: 'Media, mediana, desviación estándar, varianza, correlación, covarianza. Herramientas para explorar y describir distribuciones de datos. Esenciales en el Exploratory Data Analysis (EDA) previo al modelado. Ayudan a detectar outliers y features irrelevantes.',
+                src: 'Mathematics (notes) · AI & ML'
+            },
+
+            {
+                id: 118, cat: 'math',
+                term: 'Calculus in Machine Learning',
+                def: 'Las derivadas (gradientes) miden la tasa de cambio de la función de pérdida respecto a cada parámetro del modelo. El cálculo es la base del Gradient Descent, el algoritmo de optimización estándar para entrenar redes neuronales y la mayoría de los modelos de ML.',
+                src: 'Mathematics (notes) · AI & ML'
+            },
+
+            {
+                id: 119, cat: 'math',
+                term: 'Gradient Descent',
+                def: 'Algoritmo iterativo de optimización que ajusta los parámetros de un modelo en la dirección del gradiente negativo para minimizar la función de pérdida (loss function). Variantes: Batch GD, SGD (estocástico), Mini-batch GD, Adam. Base del entrenamiento de redes neuronales.',
+                src: 'Mathematics (notes) · AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // ML TASKS, EXPERIENCE & LIMITATIONS  (C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 125, cat: 'ml-limits',
+                term: 'ML Task, Experience and Performance (T, E, P)',
+                def: 'Definición formal de ML (Mitchell, 1997): "Un programa aprende de la experiencia E respecto a una tarea T si su performance P mejora con E." T = la tarea a realizar. E = los datos (experiencia). P = la métrica de evaluación (accuracy, AUC, etc.).',
+                src: 'ML Task, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 126, cat: 'ml-limits',
+                term: 'Data Acquisition — ML Limitation',
+                def: 'Los modelos de ML demandan grandes cantidades de datos de entrenamiento. Conseguir datos suficientes, etiquetados y representativos puede ser costoso, lento o imposible en dominios especializados. La falta de datos es una de las limitaciones más frecuentes en proyectos de ML.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 127, cat: 'ml-limits',
+                term: 'Data Quality — ML Limitation',
+                def: 'No solo se necesita cantidad de datos, sino calidad. Datos ruidosos, imprecisos o con demasiadas features irrelevantes llevan a predicciones incorrectas. "Garbage in, garbage out." Un modelo es tan bueno como los datos con los que se entrena.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 128, cat: 'ml-limits',
+                term: 'Time and Resources — ML Limitation',
+                def: 'Entrenar modelos de ML/DL puede requerir horas, días o semanas de computación, grandes cantidades de memoria y GPUs especializadas. El costo computacional es una limitación real, especialmente para Deep Learning y Fine-tuning de Foundation Models.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 129, cat: 'ml-limits',
+                term: 'High Error Susceptibility — ML Limitation',
+                def: 'ML es solo tan preciso como los datos que ingiere y el entrenamiento recibido. Si el modelo se entrena con datos insuficientes o imprecisos, el output estará sesgado. Además, encontrar el algoritmo correcto es tanto arte como ciencia: puede requerir probar decenas de algoritmos.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            {
+                id: 130, cat: 'ml-limits',
+                term: 'LIMITATIONS AND BENEFITS — Summary',
+                def: 'Limitaciones: data acquisition, data quality, tiempo/recursos computacionales, alta susceptibilidad al error, falta de interpretabilidad (black box). Beneficios: automatización de tareas repetitivas, descubrimiento de patrones ocultos en Big Data, mejora continua con más datos, escalabilidad.',
+                src: 'ML Tasks, Experience & Limitations (notes) · AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // IBM WATSON STUDIO & AutoAI  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 135, cat: 'ibm-tools',
+                term: 'IBM Watson Studio',
+                def: 'Plataforma colaborativa de IBM (parte de IBM Cloud Pak for Data y watsonx) para que data scientists, desarrolladores y analistas construyan, entrenen y desplieguen modelos de ML/AI. Incluye AutoAI, Jupyter Notebooks, RStudio y gestión de ciclo de vida de modelos.',
+                src: 'Start a project (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 136, cat: 'ibm-tools',
+                term: 'IBM Cloud Pak for Data',
+                def: 'Plataforma end-to-end de datos e IA de IBM dentro de la cual vive Watson Studio. Permite unir equipos, automatizar ciclos de vida de IA y reducir time-to-value en arquitectura multicloud abierta. Watson Studio se lanza desde aquí ("Launch in IBM Cloud Pak for Data").',
+                src: 'Start a project (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 137, cat: 'ibm-tools',
+                term: 'Cloud Object Storage (COS)',
+                def: 'Servicio IBM Cloud para almacenar datos no estructurados (imágenes, texto) y estructurados (CSV). Best practice: crearlo antes que Watson Studio. Actúa como el almacenamiento del proyecto. Debe estar en la misma región que Watson Studio (ej: Dallas/us-south).',
+                src: 'Start a project (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 138, cat: 'ibm-tools',
+                term: 'Provisioning — IBM Cloud concept',
+                def: 'Acción de crear e inicializar un servicio en IBM Cloud (ej: "provisionar Cloud Object Storage"). Cada servicio tiene un nombre personalizable y se configura antes de usarse. Se accede desde IBM Cloud Catalog → categoría AI/Machine Learning.',
+                src: 'Start a project (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 139, cat: 'ibm-tools',
+                term: 'AutoAI — IBM Official Definition',
+                def: 'Variante de AutoML de IBM que automatiza el ciclo completo de preparación de un modelo: data pre-processing, model selection (DAUB), feature engineering y hyperparameter optimization (RBFOpt). Genera un leaderboard de pipelines rankeados por precisión/velocidad.',
+                src: 'IBM AutoAI Official Docs + Create and run AI models (lab) · AI Fundamentals'
+            },
+
+            {
+                id: 140, cat: 'ibm-tools',
+                term: 'AutoAI — Step-by-Step Workflow',
+                def: '1. Crear proyecto + asociar COS. 2. Subir dataset CSV. 3. Crear experimento AutoAI + asociar Watson ML service. 4. Seleccionar columna objetivo y tipo de predicción. 5. Configurar algoritmos, split y features. 6. Run experiment. 7. Evaluar pipelines (leaderboard, ROC, Confusion Matrix). 8. Guardar pipeline ★ como modelo o notebook.',
+                src: 'Create and run AI models (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 141, cat: 'ibm-tools',
+                term: 'Watson Machine Learning (WML)',
+                def: 'Servicio IBM que se asocia a un proyecto de Watson Studio para entrenar y desplegar modelos. Debe estar en la misma región geográfica que Watson Studio (Dallas). Se selecciona al crear un experimento AutoAI en el campo "Watson Machine Learning Service Instance".',
+                src: 'Create and run AI models (lab transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 142, cat: 'ibm-tools',
+                term: 'Save as Notebook — Watson Studio',
+                def: 'Opción en Watson Studio para guardar el pipeline ganador de AutoAI como Jupyter Notebook (.ipynb). Permite: editar el código del modelo, usar el modelo con nuevos datasets, y ejecutarlo en otros IDEs. Hay que marcar el notebook como "Trusted" para habilitar la ejecución de JavaScript.',
+                src: 'Save AI models as Jupyter Notebooks (transcript) · AI Fundamentals'
+            },
+
+            {
+                id: 143, cat: 'ibm-tools',
+                term: 'german_credit_data_biased_training.csv',
+                def: 'Dataset de historial crediticio usado en el laboratorio IBM, con sesgo intencional para demostrar cómo el bias en los datos de entrenamiento se refleja en las predicciones. Columna objetivo: "Risk" (String: "Risk" / "No Risk"). Feature "Telephone" se excluye del experimento como ejemplo de feature selection.',
+                src: 'Create and run AI models (lab transcript) · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // IBM watsonx ECOSYSTEM  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 150, cat: 'watsonx',
+                term: 'IBM watsonx — Platform Overview',
+                def: 'Portfolio de productos IBM anunciado en mayo 2023 para acelerar el impacto de la IA generativa y el ML tradicional en flujos de trabajo empresariales. Tres componentes: watsonx.ai (desarrollo), watsonx.data (almacenamiento) y watsonx.governance (gobernanza).',
+                src: 'IBM watsonx Official — ibm.com/watsonx · AI Fundamentals'
+            },
+
+            {
+                id: 151, cat: 'watsonx',
+                term: 'watsonx.ai',
+                def: 'Estudio de desarrollo de IA de IBM. Permite construir, entrenar, desplegar y gestionar modelos de IA generativa y ML. Incluye IBM Granite Foundation Models, APIs, AutoAI, runtimes flexibles y soporte para RAG. Opera en arquitectura Hybrid Cloud.',
+                src: 'IBM watsonx.ai Official · AI Fundamentals'
+            },
+
+            {
+                id: 152, cat: 'watsonx',
+                term: 'watsonx.data',
+                def: 'Componente de almacenamiento y gestión de datos del portfolio IBM watsonx. Aborda issues de volumen, complejidad, costo y gobernanza de datos a escala. Permite acceso a datos en la nube o on-premises con arquitectura de datos abierta e híbrida.',
+                src: 'IBM watsonx Official · AI Fundamentals'
+            },
+
+            {
+                id: 153, cat: 'watsonx',
+                term: 'watsonx.governance',
+                def: 'Componente de gobernanza del portfolio IBM watsonx. Automatiza la gestión de riesgos de IA, monitorea modelos por bias y drift, captura metadata de modelos y facilita compliance organizacional (ej: EU AI Act). Implementa los 5 Pilares de Confianza IBM.',
+                src: 'IBM watsonx.governance Official · AI Fundamentals'
+            },
+
+            {
+                id: 154, cat: 'watsonx',
+                term: 'IBM Granite — Foundation Models',
+                def: 'Familia de Foundation Models de IBM, open-source bajo licencia Apache 2.0. Entrenados en datos curados: internet, publicaciones académicas, código, documentos legales y financieros. Disponibles en watsonx.ai. Diferencial: máxima transparencia en datos de entrenamiento (Stanford FM Transparency Index).',
+                src: 'IBM Granite Official — ibm.com/granite · AI Fundamentals'
+            },
+
+            {
+                id: 155, cat: 'watsonx',
+                term: 'Foundation Model — Definition',
+                def: 'Modelo de IA entrenado en datos a gran escala de forma que puede adaptarse a una amplia variedad de tareas downstream (fine-tuning, few-shot, zero-shot). Aprende representaciones generales del lenguaje, código o imágenes. IBM Granite es la familia propia de IBM.',
+                src: 'IBM Granite / Foundation Models · AI Fundamentals'
+            },
+
+            {
+                id: 156, cat: 'watsonx',
+                term: 'RAG — Retrieval-Augmented Generation',
+                def: 'Técnica que combina un Foundation Model con recuperación dinámica de información de una base de conocimientos externa. El modelo genera respuestas fundamentadas en datos actualizados sin necesidad de re-entrenar. Soportado en watsonx.ai.',
+                src: 'IBM watsonx.ai SDK (PyPI) · AI Fundamentals'
+            },
+
+            {
+                id: 157, cat: 'watsonx',
+                term: 'Hybrid Cloud — IBM AI context',
+                def: 'Arquitectura donde las cargas de trabajo de IA pueden ejecutarse en cualquier combinación de nube pública, privada u on-premises. IBM watsonx.ai está diseñado para operar en entornos híbridos, dando flexibilidad de despliegue a las empresas.',
+                src: 'IBM watsonx.ai Official · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // PYTHON FOR ML  (C2)
+            // ══════════════════════════════════════════════
+            {
+                id: 160, cat: 'python',
+                term: 'What is Python? — ML context',
+                def: 'Lenguaje de programación de propósito general, de alto nivel e interpretado. Sintaxis simple y legible → prototipado rápido. Gran comunidad de ciencia de datos. Ecosistema masivo de librerías especializadas en ML. Soporte nativo en Watson Studio y watsonx.ai SDK.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 161, cat: 'python',
+                term: 'Why is Python Popular for ML?',
+                def: '1. Sintaxis simple: menos código para más resultados. 2. Librerías especializadas (NumPy, Pandas, Scikit-learn, TensorFlow). 3. Gran comunidad y abundante documentación. 4. Interoperabilidad con C/C++ para performance. 5. Jupyter Notebooks para trabajo interactivo y reproducible.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 162, cat: 'python',
+                term: 'NumPy',
+                def: 'Librería Python para computación numérica. Provee arrays N-dimensionales y operaciones matemáticas de alto rendimiento (broadcasting, álgebra lineal). Base sobre la que se construyen Pandas, Scikit-learn y TensorFlow.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 163, cat: 'python',
+                term: 'Pandas',
+                def: 'Librería Python para manipulación y análisis de datos. Ofrece DataFrames (estructuras tabulares) para cargar, limpiar, transformar y explorar datasets. Ideal para Exploratory Data Analysis (EDA). Manejo eficiente de datos faltantes, merges y group-by.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 164, cat: 'python',
+                term: 'Scikit-learn',
+                def: 'Librería Python con implementaciones estandarizadas de algoritmos de ML (clasificación, regresión, clustering, reducción de dimensionalidad). Interfaz uniforme: fit() / predict() / transform(). Incluye herramientas para preprocesamiento, pipelines y evaluación.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 165, cat: 'python',
+                term: 'TensorFlow / Keras',
+                def: 'Frameworks de Deep Learning. TensorFlow (Google): flexible, escalable, orientado a producción. Keras: API de alto nivel sobre TensorFlow, más simple para prototipado. IBM Watson Studio soporta ambos en Jupyter Notebooks.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 166, cat: 'python',
+                term: 'Python Libraries — Points to Remember',
+                def: 'Ecosistema Python para ML: NumPy (álgebra lineal) → Pandas (data manipulation) → Matplotlib/Seaborn (visualización) → Scikit-learn (algoritmos ML) → TensorFlow/Keras o PyTorch (Deep Learning) → ibm-watsonx-ai SDK (integración IBM). Cada librería se especializa en una capa del pipeline.',
+                src: 'ML with Python (notes) · AI & ML'
+            },
+
+            {
+                id: 167, cat: 'python',
+                term: 'Jupyter Notebook (.ipynb)',
+                def: 'Entorno interactivo donde se mezcla código Python, salidas de visualizaciones y texto markdown. Estándar en ciencia de datos. Watson Studio lo usa como interfaz principal de notebooks. AutoAI permite guardar el pipeline ganador como .ipynb descargable y editable.',
+                src: 'Save AI models (transcript) + ML with Python (notes) · AI Fundamentals & AI & ML'
+            },
+
+            // ══════════════════════════════════════════════
+            // AI ETHICS & IBM PILLARS  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 175, cat: 'ethics',
+                term: 'IBM\'s 5 Pillars of Trustworthy AI',
+                def: 'Los 5 Pilares Fundacionales de la IA de Confianza según IBM:\n1. Explainability (explicabilidad)\n2. Fairness (equidad)\n3. Robustness (robustez)\n4. Transparency (transparencia)\n5. Privacy (privacidad)\nEstos pilares guían el desarrollo, despliegue y uso responsable de sistemas de IA.',
+                src: 'IBM AI Ethics + AI Everyday Ethics · AI Fundamentals'
+            },
+
+            {
+                id: 176, cat: 'ethics',
+                term: 'Pillar 1: Explainability',
+                def: 'El sistema de IA debe proveer explicaciones interpretables por humanos sobre sus predicciones e insights. Un sistema es "inteligible" si su funcionamiento puede explicarse técnicamente a stakeholders con distintos objetivos. Crítico para confianza, auditorías y compliance regulatorio.',
+                src: 'IBM AI Ethics — ibm.com/trust · AI Fundamentals'
+            },
+
+            {
+                id: 177, cat: 'ethics',
+                term: 'Pillar 2: Fairness',
+                def: 'Trato equitativo de individuos o grupos por el sistema de IA. El bias ocurre cuando el sistema genera resultados injustos, intencional o no. Una IA bien calibrada puede ayudar a humanos a tomar decisiones más justas contrarrestando sesgos humanos existentes.',
+                src: 'IBM AI Ethics — ibm.com/policy · AI Fundamentals'
+            },
+
+            {
+                id: 178, cat: 'ethics',
+                term: 'Pillar 3: Robustness',
+                def: 'Capacidad del sistema de IA de manejar efectivamente condiciones excepcionales: inputs anormales, ataques adversariales, distributional shift. Los sistemas deben defenderse activamente contra manipulaciones para minimizar riesgos de seguridad y generar confianza en los resultados.',
+                src: 'IBM AI Ethics — ibm.com/think/topics · AI Fundamentals'
+            },
+
+            {
+                id: 179, cat: 'ethics',
+                term: 'Pillar 4: Transparency',
+                def: 'Los usuarios deben poder ver cómo funciona el sistema, evaluar su funcionalidad y comprender sus fortalezas y limitaciones. Incluye: qué datos se recolectan, cómo se usan/almacenan, quién tiene acceso y cómo fue entrenado el modelo.',
+                src: 'IBM AI Policy — ibm.com/policy · AI Fundamentals'
+            },
+
+            {
+                id: 180, cat: 'ethics',
+                term: 'Pillar 5: Privacy',
+                def: 'Los sistemas de IA deben priorizar y salvaguardar los derechos de privacidad y datos de los usuarios. Los modelos Granite de IBM no re-entrenan con datos del cliente ni los comparten. Asegurar que los datos personales se usen solo para los propósitos declarados.',
+                src: 'IBM AI Ethics + IBM Granite Privacy · AI Fundamentals'
+            },
+
+            {
+                id: 181, cat: 'ethics',
+                term: 'AI Bias — Origin and Impact',
+                def: 'Cuando los datos de entrenamiento reflejan prejuicios históricos o de recolección, el modelo los aprende y reproduce. Puede ser intencional o no intencional. Genera resultados injustos para ciertos grupos. El dataset german_credit_data_biased_training.csv está sesgado intencionalmente para demostrarlo.',
+                src: 'AI Ethics (notes) + Watson Studio Lab · AI Fundamentals'
+            },
+
+            {
+                id: 182, cat: 'ethics',
+                term: 'IBM AI Fairness 360 (AIF360)',
+                def: 'Toolkit open-source publicado por IBM Research para auditar y mitigar bias en modelos de ML. Implementa más de 70 métricas de fairness y algoritmos de debiasing. Usado en la industria para benchmarking de equidad incluso fuera del ecosistema IBM.',
+                src: 'IBM AI Ethics Governance Framework · AI Fundamentals'
+            },
+
+            {
+                id: 183, cat: 'ethics',
+                term: 'watsonx.governance — AI Governance',
+                def: 'Herramienta de IBM watsonx para gobernanza del ciclo de vida completo de IA. Detecta bias y drift automáticamente, captura metadata de modelos, gestiona riesgos y facilita compliance (ej: EU AI Act). Implementación práctica de los 5 Pilares de Confianza IBM.',
+                src: 'IBM watsonx.governance Official · AI Fundamentals'
+            },
+
+            // ══════════════════════════════════════════════
+            // AI/ML CAREERS  (C1)
+            // ══════════════════════════════════════════════
+            {
+                id: 190, cat: 'careers',
+                term: 'Career Options in AI/ML — Overview',
+                def: 'El campo de AI/ML ofrece múltiples trayectorias: Data Scientist, ML Engineer, Data Analyst, Data Engineer, AI Researcher y roles híbridos como Data Platform Solution Engineer (IBM). Cada rol tiene foco distinto en la cadena desde los datos hasta la IA en producción.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 191, cat: 'careers',
+                term: 'Data Scientist',
+                def: 'Combina estadística, programación y conocimiento del dominio para extraer insights de datos y construir/evaluar modelos de ML. Herramientas: Python/R, SQL, Jupyter Notebooks, Watson Studio, watsonx.ai. El más amplio y transversal de los roles técnicos de datos.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 192, cat: 'careers',
+                term: 'ML Engineer',
+                def: 'Lleva los modelos de ML de investigación a producción. Foco en MLOps: pipelines de entrenamiento/despliegue, APIs, escalabilidad, monitoreo de performance y drift. Más orientado a ingeniería de software que a investigación estadística.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 193, cat: 'careers',
+                term: 'Data Analyst',
+                def: 'Interpreta datos existentes para responder preguntas de negocio. Usa estadística descriptiva, dashboards y visualizaciones (BI tools, Tableau). Menos modelado predictivo que el Data Scientist. Puente entre el equipo técnico y los stakeholders de negocio.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 194, cat: 'careers',
+                term: 'Data Engineer',
+                def: 'Construye y mantiene la infraestructura de datos: pipelines ETL/ELT, data lakes, almacenamiento estructurado/no estructurado. Asegura que los datos lleguen limpios, a tiempo y en forma a los Data Scientists para entrenar modelos.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 195, cat: 'careers',
+                term: 'AI Researcher',
+                def: 'Desarrolla nuevos algoritmos y avances teóricos en ML/DL. Publica papers académicos. Trabaja en laboratorios como IBM Research. Ejemplos de su output: AutoAI, IBM Granite, AIF360, el algoritmo RBFOpt.',
+                src: 'Careers (notes) · AI Fundamentals'
+            },
+
+            {
+                id: 196, cat: 'careers',
+                term: 'Data Platform Solution Engineer (IBM)',
+                def: 'Rol híbrido de IBM que combina conocimiento técnico profundo de plataformas de datos e IA (Cloud Pak for Data, watsonx) con habilidades de consultoría y comunicación. Ayuda a clientes a adoptar e implementar soluciones de IA en producción.',
+                src: 'What is Machine Learning (video) — Luv Aggarwal, IBM · AI Fundamentals'
+            },
+        ];
+
+        // ── STATE ──
+        let categories = JSON.parse(localStorage.getItem('ibm3_cats') || 'null') || DEFAULT_CATEGORIES;
+        let cards = JSON.parse(localStorage.getItem('ibm3_cards') || 'null') || DEFAULT_CARDS;
+        let activeFilter = 'all';
+        let nextId = Math.max(...cards.map(c => c.id), 0) + 1;
+
+        function save() {
+            localStorage.setItem('ibm3_cats', JSON.stringify(categories));
+            localStorage.setItem('ibm3_cards', JSON.stringify(cards));
+        }
+
+        // ── RENDER ──
+        function render() { renderToolbar(); renderStats(); renderMain(); }
+
+        function renderToolbar() {
+            const bar = document.getElementById('toolbar');
+            bar.innerHTML = '';
+            const allBtn = mkPill('📚', 'ALL', cards.length, activeFilter === 'all', '#0f62fe');
+            allBtn.onclick = () => { activeFilter = 'all'; render(); };
+            bar.appendChild(allBtn);
+            categories.forEach(cat => {
+                const count = cards.filter(c => c.cat === cat.id).length;
+                const label = cat.name.split(' ').slice(0, 3).join(' ');
+                const btn = mkPill(cat.emoji, label, count, activeFilter === cat.id, cat.color);
+                btn.onclick = () => { activeFilter = cat.id; render(); };
+                bar.appendChild(btn);
+            });
+        }
+
+        function mkPill(emoji, label, count, active, color) {
+            const btn = document.createElement('button');
+            btn.className = 'cat-pill' + (active ? ' active' : '');
+            if (active) btn.style.cssText = `border-color:${color};background:${color}22;color:#fff`;
+            btn.innerHTML = `${emoji} ${label} <span class="pill-count">${count}</span>`;
+            return btn;
+        }
+
+        function renderStats() {
+            const s = document.getElementById('statsBar');
+            const total = cards.length;
+            const cats = categories.length;
+            s.innerHTML = `<span><strong>${total}</strong> flashcards</span><span><strong>${cats}</strong> categorías</span><span>Courses: IBM AI Fundamentals (C1) · IBM AI &amp; Machine Learning (C2)</span>`;
+        }
+
+        function renderMain() {
+            const main = document.getElementById('main');
+            main.innerHTML = '';
+            const visCats = activeFilter === 'all' ? categories : categories.filter(c => c.id === activeFilter);
+
+            visCats.forEach(cat => {
+                const catCards = cards.filter(c => c.cat === cat.id);
+                if (catCards.length === 0 && activeFilter !== 'all') return;
+
+                const section = document.createElement('div');
+                section.className = 'section';
+
+                // header
+                const hdr = document.createElement('div');
+                hdr.className = 'section-header';
+                hdr.style.borderColor = cat.color;
+
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'section-title';
+                titleDiv.style.color = cat.color;
+
+                const dot = document.createElement('span');
+                dot.className = 'section-dot';
+                dot.style.background = cat.color;
+                titleDiv.appendChild(dot);
+                titleDiv.appendChild(document.createTextNode(`${cat.emoji}  ${cat.name}`));
+
+                const badge = document.createElement('span');
+                badge.className = 'section-badge';
+                badge.textContent = catCards.length + ' cards';
+                titleDiv.appendChild(badge);
+
+                // course tag
+                const courseKey = cat.course || 'C1';
+                const courseInfo = COURSE_LABELS[courseKey] || COURSE_LABELS['C1'];
+                const courseTag = document.createElement('span');
+                courseTag.className = 'course-tag';
+                courseTag.style.color = courseInfo.color;
+                courseTag.style.borderColor = courseInfo.color;
+                courseTag.style.background = courseInfo.color + '12';
+                courseTag.textContent = courseInfo.text;
+                titleDiv.appendChild(courseTag);
+
+                const actDiv = document.createElement('div');
+                actDiv.style = 'display:flex;gap:.5rem';
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-danger btn-sm';
+                delBtn.textContent = '✕ Delete';
+                delBtn.onclick = () => deleteCategory(cat.id);
+                actDiv.appendChild(delBtn);
+
+                hdr.appendChild(titleDiv);
+                hdr.appendChild(actDiv);
+                section.appendChild(hdr);
+
+                // grid
+                const grid = document.createElement('div');
+                grid.className = 'cards-grid';
+
+                if (catCards.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty-state';
+                    empty.textContent = 'No cards yet. Add one →';
+                    grid.appendChild(empty);
+                } else {
+                    catCards.forEach((card, i) => {
+                        const el = document.createElement('div');
+                        el.className = 'card';
+                        el.style.setProperty('--cat-color', cat.color);
+                        el.style.animationDelay = `${i * .03}s`;
+
+                        const module = document.createElement('div');
+                        module.className = 'card-module';
+                        module.style.color = cat.color;
+                        const ck = cat.course || 'C1';
+                        module.textContent = (COURSE_LABELS[ck] || COURSE_LABELS['C1']).text.toUpperCase();
+
+                        const delCard = document.createElement('button');
+                        delCard.className = 'card-del';
+                        delCard.textContent = '✕';
+                        delCard.onclick = () => deleteCard(card.id);
+
+                        const term = document.createElement('div');
+                        term.className = 'card-term';
+                        term.textContent = card.term;
+
+                        const def = document.createElement('div');
+                        def.className = 'card-def';
+                        def.innerHTML = escHtml(card.def);
+
+                        el.appendChild(module);
+                        el.appendChild(delCard);
+                        el.appendChild(term);
+                        el.appendChild(def);
+
+                        if (card.src) {
+                            const src = document.createElement('div');
+                            src.className = 'card-source';
+                            src.style.borderColor = cat.color;
+                            src.textContent = card.src;
+                            el.appendChild(src);
+                        }
+
+                        grid.appendChild(el);
+                    });
+                }
+
+                section.appendChild(grid);
+                main.appendChild(section);
+            });
+        }
+
+        function escHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+        }
+
+        // ── MODALS ──
+        function openModal(type) {
+            if (type === 'card') {
+                const sel = document.getElementById('cardCat');
+                sel.innerHTML = categories.map(c => `<option value="${c.id}">${c.emoji} ${c.name}</option>`).join('');
+                if (activeFilter !== 'all') sel.value = activeFilter;
+                document.getElementById('cardTerm').value = '';
+                document.getElementById('cardDef').value = '';
+                document.getElementById('modalCard').classList.add('open');
+                document.getElementById('cardTerm').focus();
+            } else {
+                document.getElementById('catName').value = '';
+                document.getElementById('catEmoji').value = '';
+                document.getElementById('catColor').value = '#0f62fe';
+                document.getElementById('modalCat').classList.add('open');
+                document.getElementById('catName').focus();
+            }
+        }
+        function closeModal(type) {
+            document.getElementById(type === 'card' ? 'modalCard' : 'modalCat').classList.remove('open');
+        }
+        document.querySelectorAll('.modal-overlay').forEach(o => {
+            o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(o => o.classList.remove('open'));
+        });
+
+        // ── CRUD ──
+        function addCard() {
+            const cat = document.getElementById('cardCat').value.trim();
+            const term = document.getElementById('cardTerm').value.trim();
+            const def = document.getElementById('cardDef').value.trim();
+            if (!term || !def) { alert('Completá el término y la definición.'); return; }
+            cards.push({ id: nextId++, cat, term, def });
+            save(); closeModal('card'); render();
+        }
+        function deleteCard(id) {
+            if (!confirm('¿Eliminar esta tarjeta?')) return;
+            cards = cards.filter(c => c.id !== id);
+            save(); render();
+        }
+        function addCategory() {
+            const name = document.getElementById('catName').value.trim();
+            const emoji = document.getElementById('catEmoji').value.trim() || '📌';
+            const color = document.getElementById('catColor').value.trim() || '#0f62fe';
+            if (!name) { alert('Ingresá un nombre.'); return; }
+            const id = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            if (categories.find(c => c.id === id)) { alert('Ya existe esa categoría.'); return; }
+            categories.push({ id, name, emoji, color, course: 'C1' });
+            save(); closeModal('category'); render();
+        }
+        function deleteCategory(id) {
+            const count = cards.filter(c => c.cat === id).length;
+            const msg = count > 0 ? `Esta categoría tiene ${count} tarjeta(s). ¿Eliminar todo?` : '¿Eliminar esta categoría?';
+            if (!confirm(msg)) return;
+            categories = categories.filter(c => c.id !== id);
+            cards = cards.filter(c => c.cat !== id);
+            if (activeFilter === id) activeFilter = 'all';
+            save(); render();
+        }
+
+        render();
+    </script>
+</body>
+</html>
